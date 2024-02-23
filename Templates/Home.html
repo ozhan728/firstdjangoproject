@@ -1,0 +1,27 @@
+
+{%extends 'base.html'%}
+
+    {{ all }}
+    <div class="card">
+{%block content %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'user_logout' %}" > logout </a>
+    {% else %}
+        <a href="{% url 'user_register' %}" > register </a>
+        <a href="{% url 'user_login' %}" > login </a>
+    {% endif %}
+
+        {% if request.user.is_authenticated %}
+            <p> {{ request.user }} </p>
+
+        {% else %}
+            <p> you are not logged in </p>
+
+        {% endif %}
+
+        {%for all in all %}
+                <a class="card-body" href="detail/{{all.id}}"> {{ all.name }} </a>
+        <!--        <small> {{ all.birthday }} </small>-->
+        {% endfor %}
+    </div>
+{% endblock %}
